@@ -11,15 +11,55 @@ public class Task17 {
     }
 
     private void initializeCatalog() {
-        bookCatalog.put(978123456, new Book("Java Programming", "Іванов Іван Іванович", "Tech Press", 2020, 29.99f));
-        bookCatalog.put(978098765, new Book("Effective Java", "Петров Петро Петрович", "Code Books", 2018, 39.99f));
-        bookCatalog.put(978123098, new Book("Clean Code", "Сидоров Сидор Сидорович", "Programming Books", 2017, 25.99f));
-        bookCatalog.put(978567890, new Book("Design Patterns", "Ковалев Коваль Ковалевич", "Design Press", 2019, 34.99f));
-        bookCatalog.put(978123436, new Book("The Pragmatic Programmer", "Гриценко Григорій Григорійович", "Pragmatic Books", 2021, 45.99f));
+        bookCatalog.put(978123456, new Book("Java Programming", "Анасенко. І. В.", "Tech Press", 2020, 29.99f));
+        bookCatalog.put(978098765, new Book("Effective Java", "Петров П. П.", "Code Books", 2018, 39.99f));
+        bookCatalog.put(978123098, new Book("Clean Code", "Сидоров С. К.", "Programming Books", 2017, 25.99f));
+        bookCatalog.put(978567890, new Book("Design Patterns", "Ковалев О. В.", "Design Press", 2019, 34.99f));
+        bookCatalog.put(978123436, new Book("The Pragmatic Programmer", "Гриценко Г. Д.", "Pragmatic Books", 2021, 45.99f));
     }
 
     public Book searchBookByISBN(int isbn) {
         return bookCatalog.get(isbn);
+    }
+
+    public List<Book> searchBookByTitle(String title) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : bookCatalog.values()) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                result.add(book);
+            }
+        }
+        return result;
+    }
+
+    public List<Book> searchBookByAuthor(String author) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : bookCatalog.values()) {
+            if (book.getAuthor().equalsIgnoreCase(author)) {
+                result.add(book);
+            }
+        }
+        return result;
+    }
+
+    public List<Book> searchBookByPublisher(String publisher) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : bookCatalog.values()) {
+            if (book.getPublisher().equalsIgnoreCase(publisher)) {
+                result.add(book);
+            }
+        }
+        return result;
+    }
+
+    public List<Book> searchBookByYear(int year) {
+        List<Book> result = new ArrayList<>();
+        for (Book book : bookCatalog.values()) {
+            if (book.getYear() == year) {
+                result.add(book);
+            }
+        }
+        return result;
     }
 
     public List<Book> sortByAuthor() {
@@ -43,34 +83,69 @@ public class Task17 {
         Task17 catalog = new Task17();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter ISBN to search for a book: ");
-        int isbn = scanner.nextInt();
-        Book book = catalog.searchBookByISBN(isbn);
-        if (book != null) {
-            System.out.println("Found Book: " + book);
-        } else {
-            System.out.println("Book not found.");
+        System.out.println("Оберіть критерій пошуку: ");
+        System.out.println("1 - Пошук за ISBN");
+        System.out.println("2 - Пошук за Назвою");
+        System.out.println("3 - Пошук за Автором");
+        System.out.println("4 - Пошук за Видавництвом");
+        System.out.println("5 - Пошук за Роком видання");
+        System.out.print("Введіть номер критерію пошуку: ");
+        int searchChoice = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (searchChoice) {
+            case 1 -> {
+                System.out.print("Введіть ISBN: ");
+                int isbn = scanner.nextInt();
+                Book book = catalog.searchBookByISBN(isbn);
+                System.out.println(book != null ? "Знайдена книжка: " + book : "Книжка не знайдена.");
+            }
+            case 2 -> {
+                System.out.print("Введіть Назву: ");
+                String title = scanner.nextLine();
+                List<Book> books = catalog.searchBookByTitle(title);
+                books.forEach(System.out::println);
+            }
+            case 3 -> {
+                System.out.print("Введіть Автора: ");
+                String author = scanner.nextLine();
+                List<Book> books = catalog.searchBookByAuthor(author);
+                books.forEach(System.out::println);
+            }
+            case 4 -> {
+                System.out.print("Введіть Видавництва: ");
+                String publisher = scanner.nextLine();
+                List<Book> books = catalog.searchBookByPublisher(publisher);
+                books.forEach(System.out::println);
+            }
+            case 5 -> {
+                System.out.print("Введіть Рік видавництва: ");
+                int year = scanner.nextInt();
+                List<Book> books = catalog.searchBookByYear(year);
+                books.forEach(System.out::println);
+            }
+            default -> System.out.println("Невірний номер.");
         }
 
-        System.out.print("\nSort by (1) Author or (2) Year? ");
+        System.out.print("\nсортувати за Автором(1) чи Роком(2)? ");
         int choice = scanner.nextInt();
 
         List<Book> sortedBooks;
         if (choice == 1) {
             sortedBooks = catalog.sortByAuthor();
-            System.out.println("\nBooks sorted by Author:");
+            System.out.println("\nКнижки відсортовано за Автором:");
         } else if (choice == 2) {
             sortedBooks = catalog.sortByYear();
-            System.out.println("\nBooks sorted by Year:");
+            System.out.println("\nКнижки відсортовано за Роком видаництва:");
         } else {
-            System.out.println("Invalid choice.");
+            System.out.println("Невірний номер.");
             return;
         }
 
         sortedBooks.forEach(System.out::println);
 
-        boolean isUnique = catalog.isUniqueBook(new Book("Java Programming", "Ivanov Ivan Ivanovych", "Tech Press", 2020, 29.99f));
-        System.out.println("\nIs the book unique? " + isUnique);
+        boolean isUnique = catalog.isUniqueBook(new Book("Java Programming", "Анасенко. І. В.", "Tech Press", 2020, 29.99f));
+        System.out.println("\nУнікальна книжка? " + isUnique);
 
         scanner.close();
     }
@@ -113,12 +188,12 @@ class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", year=" + year +
-                ", price=" + price +
-                '}';
+        return "Книжка[" +
+                "Назва = '" + title + '\'' +
+                ", Автор = '" + author + '\'' +
+                ", Видавництво = '" + publisher + '\'' +
+                ", \n Рік = " + year +
+                ", Ціна = " + price +
+                ']';
     }
 }
