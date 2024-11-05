@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.List;
+
 
 class Task29Test {
     private Task29 task29;
@@ -27,7 +26,6 @@ class Task29Test {
 
         task29.addFile(fileName, path, description);
 
-        // Перевірка, чи файл додано
         assertTrue(task29.fileMap.containsKey(fileName));
         assertEquals(description, task29.fileMap.get(fileName).getDescription());
     }
@@ -52,16 +50,14 @@ class Task29Test {
         task29.displayFiles();
 
         String expectedOutput = "Список файлів:\n" +
-                "file1.txt - Опис вмісту файлу 1\n" +
-                "file2.txt - Опис вмісту файлу 2\n" +
-                "file3.txt - Опис вмісту файлу 3\n" +
-                "file4.txt - Опис вмісту файлу 4\n" +
-                "file5.txt - Опис вмісту файлу 5\n";
+                "file1.txt - 123\n" +
+                "file2.txt - 4562\n" +
+                "file3.txt - Holla\n" +
+                "file4.txt - Amigo\n" +
+                "file5.txt - Konichiwa\n";
 
-        // Перевірка виводу
         assertEquals(expectedOutput, outputStream.toString().replace("\r", ""));
 
-        // Відновлення стандартного виводу
         System.setOut(System.out);
     }
 }

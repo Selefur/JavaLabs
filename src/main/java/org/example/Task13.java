@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
-
+//Створити застосунок для пошуку та зміни абонента бібліотечної мережі.
+// Початкові записи в списку абонентів (5 записів) створюються в програмному коді і є об'єктом класу HashMap.
+// Ключем запису є номер абонента (типу Integer), а значенням - об'єкт Abonent, що містить три значення типу String: прізвище, ім'я та адреса.
+// Передбачити можливість сортування за прізвищем.
 public class Task13 {
     private HashMap<Integer, Abonent> abonents;
 
@@ -22,7 +25,6 @@ public class Task13 {
             System.out.println("Пошук абонента з номером " + abonentNumber + ":");
             System.out.println(foundAbonent);
 
-            // Запит на зміну даних
             System.out.print("Бажаєте змінити дані абонента? (так/ні): ");
             String response = scanner.nextLine();
 
@@ -42,14 +44,13 @@ public class Task13 {
             System.out.println("Абонента з номером " + abonentNumber + " не знайдено.");
         }
 
-        // Сортування абонентів
         System.out.println("Список абонентів, відсортованих за прізвищем:");
         List<Abonent> sortedAbonents = libraryNetwork.sortAbonentsByLastName();
         for (Abonent abonent : sortedAbonents) {
             System.out.println(abonent);
         }
 
-        scanner.close(); // Закриваємо сканер
+        scanner.close();
     }
 
     public Task13() {
@@ -71,11 +72,10 @@ public class Task13 {
 
     public void updateAbonent(int number, String lastName, String firstName, String address) {
         Abonent abonent = new Abonent(lastName, firstName, address);
-        abonents.put(number, abonent); // Оновлюємо дані абонента
+        abonents.put(number, abonent);
     }
 
     public List<Abonent> sortAbonentsByLastName() {
-        // Створюємо новий список абонентів та сортуємо його за прізвищем
         List<Abonent> sortedAbonents = new ArrayList<>(abonents.values());
         sortedAbonents.sort(Comparator.comparing(Abonent::getLastName));
         return sortedAbonents;

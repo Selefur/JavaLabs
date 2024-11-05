@@ -5,7 +5,10 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+//Створити застосунок для перегляду списку файлів і додавання файлу в список.
+// Початкові записи в списку (для 5 текстових файлів з розширенням .txt) створюються в програмному коді і є об'єктом класу HashMap,
+// де ключем є ім'я файлу (типу String), а значенням - об'єкт типу TextFile, що містить два елементи String - абсолютний шлях до файлу (без імені файлу )
+// і короткий опис вмісту файлу.
 public class Task29 {
     public HashMap<String, TextFile> fileMap;
 
@@ -45,11 +48,11 @@ public class Task29 {
     }
 
     private void initializeFiles() {
-        fileMap.put("file1.txt", new TextFile("C:/files/", "Опис вмісту файлу 1"));
-        fileMap.put("file2.txt", new TextFile("C:/files/", "Опис вмісту файлу 2"));
-        fileMap.put("file3.txt", new TextFile("C:/files/", "Опис вмісту файлу 3"));
-        fileMap.put("file4.txt", new TextFile("C:/files/", "Опис вмісту файлу 4"));
-        fileMap.put("file5.txt", new TextFile("C:/files/", "Опис вмісту файлу 5"));
+        fileMap.put("file1.txt", new TextFile("C:/files/", "123"));
+        fileMap.put("file2.txt", new TextFile("C:/files/", "4562"));
+        fileMap.put("file3.txt", new TextFile("C:/files/", "Holla"));
+        fileMap.put("file4.txt", new TextFile("C:/files/", "Amigo"));
+        fileMap.put("file5.txt", new TextFile("C:/files/", "Konichiwa"));
     }
 
     public void addFile(String fileName, String path, String description) {
@@ -71,24 +74,6 @@ public class Task29 {
             TextFile file = fileMap.get(fileName);
             System.out.println(fileName + " - " + file.getDescription());
         }
-    }
-}
-
-class TextFile {
-    private String path;
-    private String description;
-
-    public TextFile(String path, String description) {
-        this.path = path;
-        this.description = description;
-    }
-
-    public String getPath() {
-        return path;
-    }
-
-    public String getDescription() {
-        return description;
     }
 }
 

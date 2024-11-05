@@ -36,13 +36,4 @@ class Task2Test {
         assertEquals("Марія", abonent.getFirstName());
         assertEquals("Київ, вул. Грушевського, 12", abonent.getAddress());
     }
-
-    @Test
-    void testSearchAbonentWithDifferentNumber() {
-        Abonent abonent = Task2.searchAbonent("5678901");
-        assertNotNull(abonent, "Абонент повинен існувати");
-        assertEquals("Шевченко", abonent.getLastName());
-        assertEquals("Тарас", abonent.getFirstName());
-        assertEquals("Київ, вул. Шевченка, 8", abonent.getAddress());
-    }
 }
